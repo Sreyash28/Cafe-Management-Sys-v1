@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/cafe" />
+		<property name="username" value="root" />
+		<property name="password" value="admin123" />
+	</bean>
+
+	<bean id="userDao" class="com.cts.cms.dao.UserDaoSpringJdbcImpl">
+		<property name="jdbcTemplate" ref="dataSource" />
+	</bean>
+
+	<bean id="userService" class="com.cts.cms.service.UserServiceImpl">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="menuItemsDao"
+		class="com.cts.cms.dao.MenuItemsSpringJdbcImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<bean id="menuitemsService"
+		class="com.cts.cms.service.MenuItemsServiceImpl">
+		<property name="menuItemsDao" ref="menuItemsDao" />
+	</bean>
+
+	<bean id="ordersDao"
+		class="com.cts.cms.dao.OrdersDaoSpringJdbcImpl">
+		<property name="jdbcTemplate" ref="dataSource" />
+	</bean>
+
+	<bean id="ordersService"
+		class="com.cts.cms.service.OrdersServiceImpl">
+		<property name="ordersDao" ref="ordersDao" />
+	</bean>
+
+	<bean id="orderItemsDao"
+		class="com.cts.cms.dao.OrderItemsDaoSpringJdbcImpl">
+		<property name="jdbcTemplate" ref="dataSource" />
+	</bean>
+
+	<bean id="orderItemsService"
+		class="com.cts.cms.service.OrderItemsServiceImpl">
+		<property name="orderItemsDao" ref="orderItemsDao" />
+	</bean>
+
+
+
+</beans>
